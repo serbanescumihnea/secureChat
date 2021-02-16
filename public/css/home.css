@@ -1,0 +1,97 @@
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+body{
+	font-family: 'Lexend Mega', sans-serif;
+	
+}
+section{
+    padding: 60px 0;
+}
+section .section-title{
+    text-align: center;
+    color: #00427b;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+#presentation{
+    background:#ffffff;
+}
+#presentation .card{
+	padding: 1rem!important;
+	border: none;
+	margin-bottom:1rem;
+	-webkit-transition: .5s all ease;
+	-moz-transition: .5s all ease;
+	transition: .5s all ease;
+}
+#presentation .card:hover{
+	-webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+	-moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+	box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+}
+#presentation .card .card-block{
+	padding-left: 50px;
+    position: relative;
+}
+#presentation .card .card-block a{
+	color: #00427b !important;
+	font-weight:700;
+	text-decoration:none;
+}
+#presentation .card .card-block a i{
+	display:none;
+	
+}
+#presentation .card:hover .card-block a i{
+	display:inline-block;
+	font-weight:700;
+	
+}
+#presentation .card .card-block:before{
+	font-family: FontAwesome;
+    position: absolute;
+    font-size: 39px;
+    color: #00427b;
+    left: 0;
+	-webkit-transition: -webkit-transform .2s ease-in-out;
+    transition:transform .2s ease-in-out;
+}
+#presentation .card .block-1:before{
+    content: "\f0e7";
+}
+#presentation .card .block-2:before{
+    content: "\f21b";
+}
+#presentation .card .block-3:before{
+    content: "\f075";
+}
+
+#presentation .card:hover .card-block:before{
+	-webkit-transform: rotate(360deg);
+	transform: rotate(360deg);	
+	-webkit-transition: .5s all ease;
+	-moz-transition: .5s all ease;
+	transition: .5s all ease;
+}
+
+.join{
+	width: 100%;
+	text-align: center;
+	color: #00427b;
+	
+	
+}
+@media only screen and (max-width: 600px) {
+.join .input-group{
+	margin-top: 20px;
+	text-align: center;
+	width: 70%;
+}
+}
+@media only screen and (min-width: 600px) {
+	.join .input-group{
+		margin-top: 20px;
+		text-align: center;
+		width: 20%;
+	}
+	}

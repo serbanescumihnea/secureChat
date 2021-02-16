@@ -1,0 +1,103 @@
+body{
+    
+    font-family: 'Lexend Mega', sans-serif;
+    background-image: url("/img/bg.png");
+    background-color: #cccccc;
+   
+}
+#hello{
+    font-size: 8vw;
+    text-align: center;
+    margin-top: 17vh;
+    color: white;
+}
+#helloP{
+    -webkit-animation: fadein 4s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 4s; /* Firefox < 16 */
+        -ms-animation: fadein 4s; /* Internet Explorer */
+         -o-animation: fadein 4s; /* Opera < 12.1 */
+            animation: fadein 4s;
+}
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+#modalForm{
+  margin-top: 5%;
+}
+#buttons{
+    text-align: center;
+    
+}
+button{
+  width: 20%;
+ 
+}
+#join2{
+  width: 100%;
+  
+}
+#create2{
+  width: 100%;
+  
+}
+@media screen and (max-width: 600px) {
+    #hello {
+      font-size: 12vw;
+    }
+  }
+  @media screen and (max-width: 1000px) {
+    #hello {
+      font-size: 12vw;
+    }
+    button{
+      width: 30%;
+      height: 3%;
+      
+    }
+    #join{
+      font-size:2.5vw;
+    }
+    #create{
+      font-size:2.5vw;
+    }
+  }
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    margin: auto;
+    margin-top:10%;
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 300px; /* Full width */
+    height: 330px; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+   
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    padding-bottom: 100%;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }

@@ -1,0 +1,111 @@
+<html>
+
+    <head>
+        <link rel="stylesheet" href="css/join.css">
+        <link href="https://fonts.googleapis.com/css2?family=Lexend+Mega&display=swap" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    
+    <body>
+        <div id="hello">
+            <p id="helloP"> </p>
+        </div>
+        <div id="buttons">
+            <button type="button" id="join" class="btn btn-dark">Join</button><br>
+            <button type="button"  id="create" class="btn btn-info">Create</button>
+        </div>
+
+        <div id="modal1" class="modal">
+
+            <!-- Modal content -->
+            <<div class="modal-content">
+              <span class="close">&times;</span>
+              <form id="modalForm" action="/join-room" method="POST">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon3">Room ID</span>
+                </div>
+                <input type="text" class="form-control" name="roomID" id="basic-url" aria-describedby="basic-addon3">
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon3">Password</span>
+                </div>
+                <input type="text" class="form-control" name="Password" id="basic-url" aria-describedby="basic-addon3">
+              </div>
+              <button type="submit" id="join2" class="btn btn-dark">Join</button><br>
+              </form>
+          </div>
+          
+          </div>
+          <div id="modal2" class="modal">
+            
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="modalForm" action="/create-room" method="POST">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Room ID</span>
+                  </div>
+                  <input type="text" class="form-control" name="roomID" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Password</span>
+                  </div>
+                  <input type="text" class="form-control" name="Password" id="basic-url" aria-describedby="basic-addon3">
+                </div>
+                <button type="submit"  id="create2" class="btn btn-info">Create</button>
+                </form>
+            </div>
+          
+          </div>
+                    
+    </body>
+    <script>
+     function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+    var x = getCookie('username');
+
+    var y = document.getElementById("helloP");
+        y.innerHTML = "Hello, "+"<b>"+x+"</b>";
+    var modalJoin = document.getElementById("modal1");
+    var modalCreate = document.getElementById("modal2");
+    var btnJoin = document.getElementById("join");    
+    var btnCreate = document.getElementById("create");
+    var span1 = document.getElementsByClassName("close")[0];
+    var span2 = document.getElementsByClassName("close")[1];
+    btnJoin.onclick = function() {
+    modal1.style.display = "block";
+    }
+    btnCreate.onclick = function() {
+    modal2.style.display = "block";
+    }
+    span1.onclick = function() {
+    modal1.style.display = "none";
+    }
+    span2.onclick = function() {
+    modal2.style.display = "none";
+    }
+    window.onclick = function(event) {
+    if (event.target == modal1 || event.target==modal2) {
+        modal1.style.display = "none";
+        modal2.style.display = "none";
+        }
+    }
+    
+
+
+        </script>
+</html>

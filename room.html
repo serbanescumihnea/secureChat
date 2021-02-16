@@ -1,0 +1,39 @@
+<html>
+
+    <head>
+        <link rel="stylesheet" href="css/room.css">
+        <link href="https://fonts.googleapis.com/css2?family=Lexend+Mega&display=swap" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js" integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A==" crossorigin="anonymous"></script>
+        <script src="js/room.js"></script>
+    </head>
+
+
+    <div id="ROOM">
+        <div id="MEMBERS">
+           
+            <ul class="list-group" id="MEMBERSLIST">
+                
+            </ul>
+            
+        </div>
+        <div id="CHAT">
+            <div id="scrollable-content">
+            <ul id="messagesUl" style="text-align: right" class="list-group">
+                
+                  
+            </ul>
+            
+            </div>
+            
+
+            <input id="textInput" type="text" placeholder="Type a message.." />
+            <input id="buttonInput" type="submit" value="Send" onclick="sendMessage()">
+  
+  
+        </div>
+    </div>
+
+</html>
