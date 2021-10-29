@@ -6,6 +6,8 @@ var bodyParser = require("body-parser");
 var cookie = require("cookie");
 const { nextTick } = require('process');
 var cookieParser = require('cookie-parser');
+const rateLimit = require("express-rate-limit");
+var xss = require("xss");
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
@@ -13,7 +15,7 @@ app.use(cookieParser());
 //WEBSOCKET SERVER
 const WebSocket=require('ws');
 const { json } = require('express');
-const { parse } = require('path');
+const { parse, join } = require('path');
 const wss = new WebSocket.Server({port:4001});
 
 
@@ -25,11 +27,16 @@ const wss = new WebSocket.Server({port:4001});
 var rooms = [];
 var clientsWS = [];
 
+const joinLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max:30,
+    message: "Too many join/create requests created from this IP, please try again later."
+});
 
 
 wss.on('connection',function connection(ws){
     ws.on('message',function incoming(message){
-        console.log("RECEIVED "+message);
+       
         var parsedMessage = JSON.parse(message);
         if(parsedMessage.method==="join"){
             if(JSON.parse(rooms[parsedMessage.roomID]).password===parsedMessage.roomPassword){
@@ -62,8 +69,7 @@ wss.on('connection',function connection(ws){
             }
         }
         else if(parsedMessage.method==="sendMsg"){
-            console.log(parsedMessage.message);
-            console.log(parsedMessage.sender);
+            
             if(JSON.parse(rooms[parsedMessage.roomId]).password === parsedMessage.roomPassword){
             payload={
                 "method":"receivedMessage",
@@ -72,11 +78,11 @@ wss.on('connection',function connection(ws){
             }
             for(var i = 0;i<JSON.parse(rooms[parsedMessage.roomId]).clients.length;i++){
                 clientsWS[JSON.parse(rooms[parsedMessage.roomId]).clients[i]].send(JSON.stringify(payload));
-                console.log("sent to " + JSON.parse(rooms[parsedMessage.roomId]).clients[i] );
+       
             }
         }
         }
-        console.log(rooms[parsedMessage.roomID]);
+        
     });
 });
 
@@ -101,10 +107,12 @@ router.get('/join', function(req,res){
 
 
 router.post('/create-user', function(req,res){
-
+    req.body.username = xss(req.body.username);
+    
     res.setHeader('Set-Cookie', cookie.serialize('username',req.body.username, {
         httpOnly: false,
-        maxAge: 60 * 60 * 24 * 7 
+        maxAge: 60 * 60 * 24 * 7,
+        encode: v=>v
       }));
     res.redirect('/join');
 })
@@ -113,9 +121,10 @@ router.post('/create-user', function(req,res){
 
 
 
-router.post('/create-room', function(req,res){
+router.post('/create-room',joinLimiter, function(req,res){
+    if(xss(req.body.roomID)==req.body.roomID){
     if(!rooms[req.body.roomID]){
-        console.log("cv");
+        
         payload = {
             "password":req.body.Password,
             "clients": [],
@@ -123,10 +132,15 @@ router.post('/create-room', function(req,res){
         }
         rooms[req.body.roomID] = JSON.stringify(payload);
         res.redirect('/room'+"?id="+req.body.roomID+"&&password="+req.body.Password);
+    }else{
+        res.json({error:"Room id is already used, try something else!"});
     }
-    console.log(rooms[req.body.roomID]);
+}else{
+    res.json({error:"Special characters are not allowed when creating a new room!"});
+}
+   
 })
-router.post('/join-room', function(req,res){
+router.post('/join-room',joinLimiter, function(req,res){
      res.redirect('/room'+"?id="+req.body.roomID+"&&password="+req.body.Password);
 })
 
@@ -150,16 +164,75 @@ router.get('/room', function(req,res){
     }catch(error){
         res.send("INCORRECT ROOM ID");
     }
-    }else{
-        res.send("PLEASE LOG IN");
     }
 });
+
+
+
+function checkWebSockets(){
+    
+    Object.keys(rooms).forEach(room =>{
+   
+        
+        var roomJSON = JSON.parse(rooms[room]);
+        var clientAux;
+        if(roomJSON!=null){
+        var isAlive = false;
+
+        
+        roomJSON.clients.forEach(client =>{
+            clientAux = client;
+            if(clientsWS[client]){
+            if(clientsWS[client].readyState === clientsWS[client].OPEN){
+                isAlive = true;
+                
+            }
+          
+        }
+        });
+        if(isAlive == false){
+            
+            if(clientsWS[clientAux]){
+            clientsWS[clientAux] = null;
+            }
+            rooms[room] = null;
+        }
+    }
+    });
+    setTimeout(checkWebSockets, 1800000); // 1800000ms
+}
+
+setTimeout(checkWebSockets, 1800000); // 1800000ms
+
+/*
+function checkUsedMemory(){
+    var used = process.memoryUsage().heapUsed / 1024 / 1024;
+
+setTimeout(checkUsedMemory,3000);
+}
+
+setTimeout(checkUsedMemory,3000);
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 app.use(express.static('public'));
 
 app.use('/',router);
-app.listen(process.env.port || 3001);
+app.listen(process.env.port || 3000);
 
-console.log("server running -> localhost:3001");
+console.log("server running -> localhost:3000");

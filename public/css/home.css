@@ -1,23 +1,27 @@
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 body{
 	font-family: 'Lexend Mega', sans-serif;
-	
+	background: #121212;
+	width: 100%;
+	height: 100%;
 }
 section{
     padding: 60px 0;
 }
 section .section-title{
     text-align: center;
-    color: #00427b;
+    color: #BB86FC;
     margin-bottom: 50px;
     text-transform: uppercase;
 }
 
 #presentation{
-    background:#ffffff;
+    background:#121212;
+	
 }
 #presentation .card{
 	padding: 1rem!important;
+	color: white;
 	border: none;
 	margin-bottom:1rem;
 	-webkit-transition: .5s all ease;
@@ -27,19 +31,26 @@ section .section-title{
 #presentation .card:hover{
 	-webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
 	-moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
-	box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+	box-shadow: #BB86FC 0px 1px 2px 0px, #BB86FC 0px 1px 3px 1px;
+	transform: scale(1.05);
 }
 #presentation .card .card-block{
 	padding-left: 50px;
+	background: #121212 !important;
+	border: #121212 !important;
     position: relative;
 }
+.card{
+	background: #121212 !important;
+}
 #presentation .card .card-block a{
-	color: #00427b !important;
+	color: #BB86FC !important;
 	font-weight:700;
 	text-decoration:none;
 }
 #presentation .card .card-block a i{
 	display:none;
+	
 	
 }
 #presentation .card:hover .card-block a i{
@@ -51,7 +62,7 @@ section .section-title{
 	font-family: FontAwesome;
     position: absolute;
     font-size: 39px;
-    color: #00427b;
+    color: #BB86FC;
     left: 0;
 	-webkit-transition: -webkit-transform .2s ease-in-out;
     transition:transform .2s ease-in-out;
@@ -77,9 +88,12 @@ section .section-title{
 .join{
 	width: 100%;
 	text-align: center;
-	color: #00427b;
+	color: #BB86FC;
 	
 	
+}
+.btn-primary{
+	background: #BB86FC !important;
 }
 @media only screen and (max-width: 600px) {
 .join .input-group{
@@ -92,6 +106,8 @@ section .section-title{
 	.join .input-group{
 		margin-top: 20px;
 		text-align: center;
-		width: 20%;
+		width: 40%;
 	}
 	}
+
+	

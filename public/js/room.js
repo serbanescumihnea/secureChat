@@ -1,7 +1,7 @@
-const connection = new WebSocket('ws://localhost:4001/room');
+const connection = new WebSocket('ws://192.168.0.31:4001/room');
 
 
-var userList,messageInput,messagesUl,buttonInput;
+var messageInput,messagesUl,buttonInput;
 
 
 
@@ -10,11 +10,22 @@ function addUser(users){
 
     for(var i=0;i<users.length;i++){
         if(users[i]!=connection.username){
-    var li = document.createElement('li');
-    li.appendChild(document.createTextNode(users[i]));
-    li.className = "list-group-item ";
-    li.style = "margin-top:50%;"
-    userList.appendChild(li);
+            // SHOW JOIN MESSAGE
+            var current = new Date();
+            var li = document.createElement('li');
+            li.className="list-group-item";
+            li.id = "joined";
+            var p1 = document.createElement('p');
+            p1.id = "message-paragraphJoin";
+            p1.style="font-size:30px; text-align:center;";
+            p1.innerHTML = users[i] + " joined the room!";
+            li.appendChild(p1);
+            var p2 = document.createElement('p');
+            p2.id = "message-paragraphJoin";
+            p2.innerHTML = current.toLocaleTimeString();
+            messagesUl.appendChild(li);
+            messagesUl.appendChild(p2);
+            p2.scrollIntoView();
         }
     }
 }
@@ -22,7 +33,7 @@ function addUser(users){
 function sendMessage(){
     payload={
         "method":"sendMsg",
-        "message":CryptoJS.AES.encrypt(messageInput.value,connection.password).toString(),
+        "message":CryptoJS.AES.encrypt(messageInput.value.replace("&","&amp").replace("<","&lt").replace(">","&gt").replace('"','&quot').replace("'","&#x27"),connection.password).toString(),
         "sender":connection.username,
         "roomId":connection.id,
         "roomPassword":connection.password
@@ -48,7 +59,8 @@ function receiveMessage(messageFromServer){
         p2.innerHTML = messageFromServer.sender + " - " + current.toLocaleTimeString();
         messagesUl.appendChild(li);
         messagesUl.appendChild(p2);
-        console.log( "rendering 1 " + connection.username);
+        
+        p2.scrollIntoView();
     }else{
         messageFromServer.message = CryptoJS.AES.decrypt(messageFromServer.message,connection.password);
         messageFromServer.message = messageFromServer.message.toString(CryptoJS.enc.Utf8);
@@ -65,7 +77,8 @@ function receiveMessage(messageFromServer){
         p2.innerHTML = messageFromServer.sender + " - " + current.toLocaleTimeString();
         messagesUl.appendChild(li);
         messagesUl.appendChild(p2);
-        console.log( "rendering 1 " + connection.username);
+        
+        p2.scrollIntoView();
     }
 }
 
@@ -94,11 +107,12 @@ connection.onopen=function(){
 // GET JAVASCRIPT VARIABLES
 
 window.onload = (event) =>{
-    userList = document.getElementById("MEMBERSLIST");
-    console.log(userList);
+
+
     messageInput = document.getElementById("textInput");
     messagesUl = document.getElementById("messagesUl");
     buttonInput = document.getElementById('buttonInput');
+    scrollableDiv = document.getElementById("scrollableContent");
     messageInput.addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
             event.preventDefault();

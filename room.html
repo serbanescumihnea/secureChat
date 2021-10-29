@@ -8,17 +8,15 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js" integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A==" crossorigin="anonymous"></script>
         <script src="js/room.js"></script>
+        
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="https://kit.fontawesome.com/20bb06ba83.js" crossorigin="anonymous"></script>
     </head>
 
 
     <div id="ROOM">
-        <div id="MEMBERS">
-           
-            <ul class="list-group" id="MEMBERSLIST">
-                
-            </ul>
-            
-        </div>
+        
         <div id="CHAT">
             <div id="scrollable-content">
             <ul id="messagesUl" style="text-align: right" class="list-group">
@@ -28,9 +26,16 @@
             
             </div>
             
-
-            <input id="textInput" type="text" placeholder="Type a message.." />
-            <input id="buttonInput" type="submit" value="Send" onclick="sendMessage()">
+            
+            <div id="controls">
+                <div class="input-group mb-3">
+                    <input id="textInput" type="text" class="form-control" placeholder="Type a message..." aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" onclick="sendMessage()" type="button"><i class="fas fa-arrow-up"></i></button>
+                    </div>
+                  </div>
+            
+        </div>
   
   
         </div>

@@ -1,8 +1,8 @@
 body{
     
     font-family: 'Lexend Mega', sans-serif;
-    background-image: url("/img/bg.png");
-    background-color: #cccccc;
+
+    background-color: #121212 !important;
    
 }
 #hello{
@@ -25,6 +25,10 @@ body{
 #modalForm{
   margin-top: 5%;
 }
+.btn-info{
+  background-color: #BB86FC!important;
+  border-color: #BB86FC!important;
+}
 #buttons{
     text-align: center;
     
@@ -43,25 +47,14 @@ button{
 }
 @media screen and (max-width: 600px) {
     #hello {
-      font-size: 12vw;
+      font-size: 20vw;
     }
+  #join,#create{
+    width: 50% !important;
+    height: 5% !important;
   }
-  @media screen and (max-width: 1000px) {
-    #hello {
-      font-size: 12vw;
-    }
-    button{
-      width: 30%;
-      height: 3%;
-      
-    }
-    #join{
-      font-size:2.5vw;
-    }
-    #create{
-      font-size:2.5vw;
-    }
   }
+  
   .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -72,16 +65,16 @@ button{
     left: 0;
     top: 0;
     width: 300px; /* Full width */
-    height: 330px; /* Full height */
+    height: 350px; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-   
+   border-radius: 10px;
   }
   
   /* Modal Content */
   .modal-content {
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
+    padding: 30px;
     padding-bottom: 100%;
     border: 1px solid #888;
     width: 80%;
@@ -101,3 +94,4 @@ button{
     text-decoration: none;
     cursor: pointer;
   }
+
